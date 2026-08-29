@@ -223,16 +223,18 @@ final class Renderer: NSObject, MTKViewDelegate {
                       color: SIMD4<Float>,
                       projection: float4x4,
                       encoder: MTLRenderCommandEncoder) {
-        // At scale zero nothing would rasterize, and the normal matrix would
-        // be singular; skip the draw. Negative scales (the wobble math dips
-        // below zero briefly) are kept: they flip the winding so the shape is
-        // culled away, matching the original.
+        // At scale zero nothing would rasterize; skip the draw. Negative
+        // scales (the wobble math dips below zero briefly) are kept: they
+        // flip the winding so the shape is culled away, matching the
+        // original.
         guard abs(scale) > 1e-5 else { return }
 
+        // The modelview is rotation and uniform scale only, and the shader
+        // normalizes, so the upper-left 3x3 works as the normal matrix.
         let modelView = base * float4x4(uniformScale: scale)
         var uniforms = Uniforms(modelViewMatrix: modelView,
                                 projectionMatrix: projection,
-                                normalMatrix: modelView.upperLeft3x3.inverse.transpose,
+                                normalMatrix: modelView.upperLeft3x3,
                                 color: color)
 
         encoder.setVertexBuffer(mesh.buffer, offset: 0, index: 0)

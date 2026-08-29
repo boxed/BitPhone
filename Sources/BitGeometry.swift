@@ -15,9 +15,7 @@ struct Vertex {
 /// Builds the shapes the original OpenGL ES renderer drew: the icosahedron +
 /// dodecahedron compound that forms the idle "bit", the octahedron flashed for
 /// "yes", and the spiky star flashed for "no". Normals are per face (flat
-/// shading), and some are deliberately unnormalized: the original fed them to
-/// the fixed-function pipeline without GL_NORMALIZE, so their lengths modulate
-/// the brightness. That look is preserved here.
+/// shading); the shader normalizes them.
 enum BitGeometry {
 
     // MARK: - Icosahedron data (from the classic OpenGL red book)
@@ -97,8 +95,7 @@ enum BitGeometry {
         }
     }
 
-    /// The "yes" octahedron. The corner-pointing normals are unnormalized
-    /// (length √3), which overbrightens the shape exactly as the original did.
+    /// The "yes" octahedron.
     static func yes() -> [Vertex] {
         let faces: [(normal: SIMD3<Float>, corners: [SIMD3<Float>])] = [
             ([-1, -1, -1], [[-1, 0, 0], [0, 0, -1], [0, -1, 0]]),
@@ -116,8 +113,7 @@ enum BitGeometry {
     }
 
     /// The "no" star: 60 blade triangles around the icosahedron's faces, plus
-    /// an inner core. The original drew the core inside a glScalef(0.7) that
-    /// also scaled the normals by 1/0.7; both are baked into the vertices.
+    /// an inner core at 0.7 of its scale.
     static func no() -> [Vertex] {
         var vertices: [Vertex] = []
 
@@ -134,7 +130,7 @@ enum BitGeometry {
             let core = starCore(icosahedronVertices[face.0],
                                 icosahedronVertices[face.1],
                                 icosahedronVertices[face.2])
-            vertices += core.map { Vertex(position: $0.position * 0.7, normal: $0.normal / 0.7) }
+            vertices += core.map { Vertex(position: $0.position * 0.7, normal: $0.normal) }
         }
 
         return vertices

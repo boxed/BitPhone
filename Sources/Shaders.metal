@@ -25,18 +25,14 @@ struct VertexOut {
     float4 color;
 };
 
-// Replicates the fixed-function GLES 1.1 lighting the original renderer set
-// up: one directional light at (0, 0, 1) in eye space, a combined global +
-// light ambient term of 0.3, and the material color tracking glColor. Normals
-// are deliberately not renormalized -- some meshes carry unnormalized normals
-// (and the modelview scale reaches them through the normal matrix) whose
-// lengths modulate the brightness, as in the original.
+// Flat-shaded directional lighting: one light at (0, 0, 1) in eye space and
+// an ambient term of 0.3, matching the light the original renderer set up.
 vertex VertexOut bit_vertex(uint vertexID [[vertex_id]],
                             device const VertexIn *vertices [[buffer(0)]],
                             constant Uniforms &uniforms [[buffer(1)]])
 {
     VertexIn in = vertices[vertexID];
-    float3 eyeNormal = uniforms.normalMatrix * in.normal;
+    float3 eyeNormal = normalize(uniforms.normalMatrix * in.normal);
     float light = 0.3 + max(0.0f, eyeNormal.z);
 
     VertexOut out;
