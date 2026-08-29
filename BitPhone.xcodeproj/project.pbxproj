@@ -7,51 +7,43 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1D3623260D0F684500981E51 /* BitPhoneAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* BitPhoneAppDelegate.m */; };
-		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
+		5B0000000000000000000201 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0000000000000000000101 /* AppDelegate.swift */; };
+		5B0000000000000000000202 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0000000000000000000102 /* SceneDelegate.swift */; };
+		5B0000000000000000000203 /* BitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0000000000000000000103 /* BitViewController.swift */; };
+		5B0000000000000000000204 /* BitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0000000000000000000104 /* BitView.swift */; };
+		5B0000000000000000000205 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0000000000000000000105 /* Renderer.swift */; };
+		5B0000000000000000000206 /* BitGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0000000000000000000106 /* BitGeometry.swift */; };
+		5B0000000000000000000207 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 5B0000000000000000000107 /* Shaders.metal */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
-		2514C27210084DB100A42282 /* ES1Renderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2514C26E10084DB100A42282 /* ES1Renderer.mm */; };
-		28FD14FE0DC6FC130079059D /* EAGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28FD14FD0DC6FC130079059D /* EAGLView.m */; };
-		28FD15000DC6FC520079059D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD14FF0DC6FC520079059D /* OpenGLES.framework */; };
 		28FD15080DC6FC5B0079059D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD15070DC6FC5B0079059D /* QuartzCore.framework */; };
 		AE0A424D11FA497700074915 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AE0A424C11FA497700074915 /* icon@2x.png */; };
-		AECC110C116900F2008AFA6E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AECC110B116900F2008AFA6E /* AVFoundation.framework */; };
 		AECC114511690296008AFA6E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AECC114411690296008AFA6E /* AudioToolbox.framework */; };
 		AECC116A1169058F008AFA6E /* tron_bit_no.aiff in Resources */ = {isa = PBXBuildFile; fileRef = AECC11691169058F008AFA6E /* tron_bit_no.aiff */; };
 		AECC116F116905E9008AFA6E /* tron_bit_yes.aiff in Resources */ = {isa = PBXBuildFile; fileRef = AECC116E116905E9008AFA6E /* tron_bit_yes.aiff */; };
 		AECC118211693014008AFA6E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AECC118111693014008AFA6E /* CoreGraphics.framework */; };
-		AECC118411693014008AFA6E /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AECC118311693014008AFA6E /* MediaPlayer.framework */; };
-		AECC118611693014008AFA6E /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AECC118511693014008AFA6E /* MessageUI.framework */; };
 		AECC121511693C65008AFA6E /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = AECC121411693C65008AFA6E /* icon.png */; };
 		AECC124111694021008AFA6E /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = AECC124011694021008AFA6E /* Entitlements.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5B0000000000000000000101 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		5B0000000000000000000102 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		5B0000000000000000000103 /* BitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitViewController.swift; sourceTree = "<group>"; };
+		5B0000000000000000000104 /* BitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitView.swift; sourceTree = "<group>"; };
+		5B0000000000000000000105 /* Renderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
+		5B0000000000000000000106 /* BitGeometry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitGeometry.swift; sourceTree = "<group>"; };
+		5B0000000000000000000107 /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		1D3623240D0F684500981E51 /* BitPhoneAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitPhoneAppDelegate.h; sourceTree = "<group>"; };
-		1D3623250D0F684500981E51 /* BitPhoneAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BitPhoneAppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* BitPhone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BitPhone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		2514C26D10084DB100A42282 /* ES1Renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ES1Renderer.h; sourceTree = "<group>"; };
-		2514C26E10084DB100A42282 /* ES1Renderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ES1Renderer.mm; sourceTree = "<group>"; };
-		2514C27110084DB100A42282 /* ESRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESRenderer.h; sourceTree = "<group>"; };
-		28FD14FC0DC6FC130079059D /* EAGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAGLView.h; sourceTree = "<group>"; };
-		28FD14FD0DC6FC130079059D /* EAGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EAGLView.m; sourceTree = "<group>"; };
-		28FD14FF0DC6FC520079059D /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		28FD15070DC6FC5B0079059D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		32CA4F630368D1EE00C91783 /* BitPhone_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitPhone_Prefix.pch; sourceTree = "<group>"; };
-		5BD0FFCE2577C2C6003FA161 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* BitPhone-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "BitPhone-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		AE0A424C11FA497700074915 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
-		AECC110B116900F2008AFA6E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		AECC114411690296008AFA6E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		AECC11691169058F008AFA6E /* tron_bit_no.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = tron_bit_no.aiff; sourceTree = "<group>"; };
 		AECC116E116905E9008AFA6E /* tron_bit_yes.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = tron_bit_yes.aiff; sourceTree = "<group>"; };
 		AECC118111693014008AFA6E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		AECC118311693014008AFA6E /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
-		AECC118511693014008AFA6E /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		AECC121411693C65008AFA6E /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		AECC124011694021008AFA6E /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		AED6224A12FCB70600E75D42 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
@@ -64,32 +56,27 @@
 			files = (
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
-				28FD15000DC6FC520079059D /* OpenGLES.framework in Frameworks */,
 				28FD15080DC6FC5B0079059D /* QuartzCore.framework in Frameworks */,
-				AECC110C116900F2008AFA6E /* AVFoundation.framework in Frameworks */,
 				AECC114511690296008AFA6E /* AudioToolbox.framework in Frameworks */,
 				AECC118211693014008AFA6E /* CoreGraphics.framework in Frameworks */,
-				AECC118411693014008AFA6E /* MediaPlayer.framework in Frameworks */,
-				AECC118611693014008AFA6E /* MessageUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		080E96DDFE201D6D7F000001 /* Classes */ = {
+		080E96DDFE201D6D7F000001 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				5BD0FFCE2577C2C6003FA161 /* Info.plist */,
-				2514C26D10084DB100A42282 /* ES1Renderer.h */,
-				2514C26E10084DB100A42282 /* ES1Renderer.mm */,
-				2514C27110084DB100A42282 /* ESRenderer.h */,
-				28FD14FC0DC6FC130079059D /* EAGLView.h */,
-				28FD14FD0DC6FC130079059D /* EAGLView.m */,
-				1D3623240D0F684500981E51 /* BitPhoneAppDelegate.h */,
-				1D3623250D0F684500981E51 /* BitPhoneAppDelegate.m */,
+				5B0000000000000000000101 /* AppDelegate.swift */,
+				5B0000000000000000000102 /* SceneDelegate.swift */,
+				5B0000000000000000000103 /* BitViewController.swift */,
+				5B0000000000000000000104 /* BitView.swift */,
+				5B0000000000000000000105 /* Renderer.swift */,
+				5B0000000000000000000106 /* BitGeometry.swift */,
+				5B0000000000000000000107 /* Shaders.metal */,
 			);
-			path = Classes;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
@@ -103,24 +90,13 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				080E96DDFE201D6D7F000001 /* Classes */,
-				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				080E96DDFE201D6D7F000001 /* Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				AECC110B116900F2008AFA6E /* AVFoundation.framework */,
 				AECC124011694021008AFA6E /* Entitlements.plist */,
 			);
 			name = CustomTemplate;
-			sourceTree = "<group>";
-		};
-		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
-			isa = PBXGroup;
-			children = (
-				32CA4F630368D1EE00C91783 /* BitPhone_Prefix.pch */,
-				29B97316FDCFA39411CA2CEA /* main.m */,
-			);
-			name = "Other Sources";
 			sourceTree = "<group>";
 		};
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
@@ -140,13 +116,10 @@
 			isa = PBXGroup;
 			children = (
 				28FD15070DC6FC5B0079059D /* QuartzCore.framework */,
-				28FD14FF0DC6FC520079059D /* OpenGLES.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				AECC114411690296008AFA6E /* AudioToolbox.framework */,
 				AECC118111693014008AFA6E /* CoreGraphics.framework */,
-				AECC118311693014008AFA6E /* MediaPlayer.framework */,
-				AECC118511693014008AFA6E /* MessageUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -225,10 +198,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
-				1D3623260D0F684500981E51 /* BitPhoneAppDelegate.m in Sources */,
-				28FD14FE0DC6FC130079059D /* EAGLView.m in Sources */,
-				2514C27210084DB100A42282 /* ES1Renderer.mm in Sources */,
+				5B0000000000000000000201 /* AppDelegate.swift in Sources */,
+				5B0000000000000000000202 /* SceneDelegate.swift in Sources */,
+				5B0000000000000000000203 /* BitViewController.swift in Sources */,
+				5B0000000000000000000204 /* BitView.swift in Sources */,
+				5B0000000000000000000205 /* Renderer.swift in Sources */,
+				5B0000000000000000000206 /* BitGeometry.swift in Sources */,
+				5B0000000000000000000207 /* Shaders.metal in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,8 +222,7 @@
 				DEVELOPMENT_TEAM = B6FVY827P9;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = BitPhone_Prefix.pch;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				INFOPLIST_FILE = "BitPhone-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Bit;
@@ -261,6 +236,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = net.kodare.bit;
 				PRODUCT_NAME = BitPhone;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -273,8 +249,6 @@
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = B6FVY827P9;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = BitPhone_Prefix.pch;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				INFOPLIST_FILE = "BitPhone-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Bit;
@@ -288,6 +262,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = net.kodare.bit;
 				PRODUCT_NAME = BitPhone;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -341,8 +316,6 @@
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = B6FVY827P9;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = BitPhone_Prefix.pch;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				INFOPLIST_FILE = "BitPhone-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Bit;
@@ -356,6 +329,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = net.kodare.bit;
 				PRODUCT_NAME = BitPhone;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Distribution;
 		};
