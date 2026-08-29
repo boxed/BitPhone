@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B0000000000000000000311 /* BitMacApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0000000000000000000310 /* BitMacApp.swift */; };
+		5B0000000000000000000312 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0000000000000000000105 /* Renderer.swift */; };
+		5B0000000000000000000313 /* BitGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0000000000000000000106 /* BitGeometry.swift */; };
+		5B0000000000000000000314 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 5B0000000000000000000107 /* Shaders.metal */; };
+		5B0000000000000000000315 /* tron_bit_yes.aiff in Resources */ = {isa = PBXBuildFile; fileRef = AECC116E116905E9008AFA6E /* tron_bit_yes.aiff */; };
+		5B0000000000000000000316 /* tron_bit_no.aiff in Resources */ = {isa = PBXBuildFile; fileRef = AECC11691169058F008AFA6E /* tron_bit_no.aiff */; };
 		5B0000000000000000000201 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0000000000000000000101 /* AppDelegate.swift */; };
 		5B0000000000000000000202 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0000000000000000000102 /* SceneDelegate.swift */; };
 		5B0000000000000000000203 /* BitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0000000000000000000103 /* BitViewController.swift */; };
@@ -27,6 +33,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5B0000000000000000000310 /* BitMacApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitMacApp.swift; sourceTree = "<group>"; };
+		5B0000000000000000000306 /* BitMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BitMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B0000000000000000000101 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B0000000000000000000102 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		5B0000000000000000000103 /* BitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitViewController.swift; sourceTree = "<group>"; };
@@ -50,6 +58,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		5B0000000000000000000304 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1D60588F0D05DD3D006BFB54 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -65,6 +80,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5B0000000000000000000320 /* Mac */ = {
+			isa = PBXGroup;
+			children = (
+				5B0000000000000000000310 /* BitMacApp.swift */,
+			);
+			path = Mac;
+			sourceTree = "<group>";
+		};
 		080E96DDFE201D6D7F000001 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -75,6 +98,7 @@
 				5B0000000000000000000105 /* Renderer.swift */,
 				5B0000000000000000000106 /* BitGeometry.swift */,
 				5B0000000000000000000107 /* Shaders.metal */,
+				5B0000000000000000000320 /* Mac */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -83,6 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				1D6058910D05DD3D006BFB54 /* BitPhone.app */,
+				5B0000000000000000000306 /* BitMac.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -127,6 +152,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		5B0000000000000000000301 /* BitMac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5B0000000000000000000302 /* Build configuration list for PBXNativeTarget "BitMac" */;
+			buildPhases = (
+				5B0000000000000000000305 /* Resources */,
+				5B0000000000000000000303 /* Sources */,
+				5B0000000000000000000304 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BitMac;
+			productName = BitMac;
+			productReference = 5B0000000000000000000306 /* BitMac.app */;
+			productType = "com.apple.product-type.application";
+		};
 		1D6058900D05DD3D006BFB54 /* BitPhone */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "BitPhone" */;
@@ -152,6 +194,9 @@
 			attributes = {
 				LastUpgradeCheck = 1220;
 				TargetAttributes = {
+					5B0000000000000000000301 = {
+						ProvisioningStyle = Automatic;
+					};
 					1D6058900D05DD3D006BFB54 = {
 						DevelopmentTeam = B6FVY827P9;
 						ProvisioningStyle = Automatic;
@@ -174,11 +219,21 @@
 			projectRoot = "";
 			targets = (
 				1D6058900D05DD3D006BFB54 /* BitPhone */,
+				5B0000000000000000000301 /* BitMac */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		5B0000000000000000000305 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5B0000000000000000000315 /* tron_bit_yes.aiff in Resources */,
+				5B0000000000000000000316 /* tron_bit_no.aiff in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1D60588D0D05DD3D006BFB54 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -194,6 +249,17 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		5B0000000000000000000303 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5B0000000000000000000311 /* BitMacApp.swift in Sources */,
+				5B0000000000000000000312 /* Renderer.swift in Sources */,
+				5B0000000000000000000313 /* BitGeometry.swift in Sources */,
+				5B0000000000000000000314 /* Shaders.metal in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1D60588E0D05DD3D006BFB54 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -211,6 +277,70 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		5B0000000000000000000330 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 4;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Bit;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 4;
+				PRODUCT_BUNDLE_IDENTIFIER = net.kodare.bit.mac;
+				PRODUCT_NAME = BitMac;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		5B0000000000000000000331 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 4;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Bit;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 4;
+				PRODUCT_BUNDLE_IDENTIFIER = net.kodare.bit.mac;
+				PRODUCT_NAME = BitMac;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		5B0000000000000000000332 /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 4;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Bit;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 4;
+				PRODUCT_BUNDLE_IDENTIFIER = net.kodare.bit.mac;
+				PRODUCT_NAME = BitMac;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Distribution;
+		};
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -418,6 +548,16 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		5B0000000000000000000302 /* Build configuration list for PBXNativeTarget "BitMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5B0000000000000000000330 /* Debug */,
+				5B0000000000000000000331 /* Release */,
+				5B0000000000000000000332 /* Distribution */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "BitPhone" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
