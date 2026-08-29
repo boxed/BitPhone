@@ -130,6 +130,7 @@ final class BitView: MTKView {
     private var mouseIsDown = false
     private var pickedUp = false
     private var pendingDragDistance: CGFloat = 0
+    private var resizeCenter: NSPoint?
     private var clickThroughTimer: Timer?
     private var holdTimer: Timer?
 
@@ -193,6 +194,9 @@ final class BitView: MTKView {
             holdTimer?.invalidate()
             holdTimer = nil
             dragged = true
+            if resizeCenter == nil, let frame = window?.frame {
+                resizeCenter = NSPoint(x: frame.midX, y: frame.midY)
+            }
             resizeWindow(by: -event.deltaY)
             return
         }
@@ -221,6 +225,7 @@ final class BitView: MTKView {
     override func mouseUp(with event: NSEvent) {
         holdTimer?.invalidate()
         holdTimer = nil
+        resizeCenter = nil
         if pickedUp {
             putDown()
         } else if !dragged {
@@ -231,16 +236,16 @@ final class BitView: MTKView {
     }
 
     /// Control-dragging up grows the window (and with it the bit), dragging
-    /// down shrinks it. Resizes around the center so the bit stays put.
+    /// down shrinks it. The frame is always derived from the center captured
+    /// when the gesture started; recentering incrementally would accumulate
+    /// rounding drift and make the window wander.
     private func resizeWindow(by delta: CGFloat) {
-        guard let window else { return }
-        var frame = window.frame
-        let side = min(max(frame.width + delta, 120), 1200)
-        let change = side - frame.width
-        guard change != 0 else { return }
-        frame.origin.x -= change / 2
-        frame.origin.y -= change / 2
-        frame.size = NSSize(width: side, height: side)
+        guard let window, let center = resizeCenter else { return }
+        let side = min(max(window.frame.width + delta, 120), 1200)
+        let frame = NSRect(x: (center.x - side / 2).rounded(),
+                           y: (center.y - side / 2).rounded(),
+                           width: side.rounded(),
+                           height: side.rounded())
         window.setFrame(frame, display: true)
     }
 
