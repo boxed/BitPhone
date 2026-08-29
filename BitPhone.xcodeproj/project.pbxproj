@@ -13,6 +13,7 @@
 		5B0000000000000000000314 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 5B0000000000000000000107 /* Shaders.metal */; };
 		5B0000000000000000000315 /* tron_bit_yes.aiff in Resources */ = {isa = PBXBuildFile; fileRef = AECC116E116905E9008AFA6E /* tron_bit_yes.aiff */; };
 		5B0000000000000000000316 /* tron_bit_no.aiff in Resources */ = {isa = PBXBuildFile; fileRef = AECC11691169058F008AFA6E /* tron_bit_no.aiff */; };
+		5B0000000000000000000318 /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 5B0000000000000000000317 /* AppIcon.icns */; };
 		5B0000000000000000000201 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0000000000000000000101 /* AppDelegate.swift */; };
 		5B0000000000000000000202 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0000000000000000000102 /* SceneDelegate.swift */; };
 		5B0000000000000000000203 /* BitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0000000000000000000103 /* BitViewController.swift */; };
@@ -34,7 +35,9 @@
 
 /* Begin PBXFileReference section */
 		5B0000000000000000000310 /* BitMacApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitMacApp.swift; sourceTree = "<group>"; };
-		5B0000000000000000000306 /* BitMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BitMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B0000000000000000000317 /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
+		5B0000000000000000000319 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5B0000000000000000000306 /* BitMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B0000000000000000000101 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B0000000000000000000102 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		5B0000000000000000000103 /* BitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitViewController.swift; sourceTree = "<group>"; };
@@ -84,6 +87,8 @@
 			isa = PBXGroup;
 			children = (
 				5B0000000000000000000310 /* BitMacApp.swift */,
+				5B0000000000000000000317 /* AppIcon.icns */,
+				5B0000000000000000000319 /* Info.plist */,
 			);
 			path = Mac;
 			sourceTree = "<group>";
@@ -231,6 +236,7 @@
 			files = (
 				5B0000000000000000000315 /* tron_bit_yes.aiff in Resources */,
 				5B0000000000000000000316 /* tron_bit_no.aiff in Resources */,
+				5B0000000000000000000318 /* AppIcon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,12 +292,13 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 4;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Sources/Mac/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Bit;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 4;
 				PRODUCT_BUNDLE_IDENTIFIER = net.kodare.bit.mac;
-				PRODUCT_NAME = BitMac;
+				PRODUCT_NAME = Bit;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
@@ -308,12 +315,13 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 4;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Sources/Mac/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Bit;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 4;
 				PRODUCT_BUNDLE_IDENTIFIER = net.kodare.bit.mac;
-				PRODUCT_NAME = BitMac;
+				PRODUCT_NAME = Bit;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
@@ -329,12 +337,13 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 4;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Sources/Mac/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Bit;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 4;
 				PRODUCT_BUNDLE_IDENTIFIER = net.kodare.bit.mac;
-				PRODUCT_NAME = BitMac;
+				PRODUCT_NAME = Bit;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;

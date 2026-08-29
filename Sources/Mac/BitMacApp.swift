@@ -30,6 +30,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.mainMenu = Self.makeMainMenu()
 
+        // Set the icon directly as well: LaunchServices caches the iconless
+        // registration of previous builds aggressively.
+        if let iconURL = Bundle.main.url(forResource: "AppIcon", withExtension: "icns"),
+           let icon = NSImage(contentsOf: iconURL) {
+            NSApp.applicationIconImage = icon
+        }
+
         let size: CGFloat = 480
         let screen = NSScreen.main?.visibleFrame ?? NSRect(x: 0, y: 0, width: size, height: size)
         let contentRect = NSRect(x: screen.midX - size / 2, y: screen.midY - size / 2,
@@ -43,6 +50,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         window.level = .floating
         window.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
         window.contentView = BitView(frame: NSRect(origin: .zero, size: contentRect.size))
+        window.setFrameAutosaveName("bit")  // remember position and size
         window.makeKeyAndOrderFront(nil)
         self.window = window
 
@@ -59,6 +67,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     private static func makeMainMenu() -> NSMenu {
         let appMenu = NSMenu()
+        appMenu.addItem(NSMenuItem(title: "About Bit",
+                                   action: #selector(showAbout),
+                                   keyEquivalent: ""))
+        appMenu.addItem(.separator())
         appMenu.addItem(NSMenuItem(title: "Quit Bit",
                                    action: #selector(NSApplication.terminate(_:)),
                                    keyEquivalent: "q"))
@@ -67,6 +79,28 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let mainMenu = NSMenu()
         mainMenu.addItem(appMenuItem)
         return mainMenu
+    }
+
+    @objc private func showAbout() {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        paragraphStyle.paragraphSpacing = 6
+
+        let credits = NSAttributedString(
+            string: """
+            Click the bit to ask it a question.
+            Drag to spin it.
+            Hold the mouse button down on it for a moment \
+            to pick it up, then drag to move it.
+            Control-drag up or down to resize it.
+            """,
+            attributes: [
+                .font: NSFont.systemFont(ofSize: NSFont.smallSystemFontSize),
+                .foregroundColor: NSColor.labelColor,
+                .paragraphStyle: paragraphStyle,
+            ])
+        NSApp.orderFrontStandardAboutPanel(options: [.credits: credits])
+        NSApp.activate(ignoringOtherApps: true)
     }
 }
 
@@ -81,7 +115,7 @@ final class BitWindow: NSWindow {
 /// The Metal view showing the bit. Dragging spins it, and clicking asks it a
 /// question. Holding the mouse button still for a moment picks the bit up
 /// (it dips, then pops slightly larger); dragging then moves the window, and
-/// releasing puts it down.
+/// releasing puts it down. Control-dragging up and down resizes the bit.
 final class BitView: MTKView {
     /// The bit never reaches past this fraction of the view's half-size;
     /// outside that circle the window lets clicks fall through to whatever
@@ -155,6 +189,14 @@ final class BitView: MTKView {
     }
 
     override func mouseDragged(with event: NSEvent) {
+        if event.modifierFlags.contains(.control) {
+            holdTimer?.invalidate()
+            holdTimer = nil
+            dragged = true
+            resizeWindow(by: -event.deltaY)
+            return
+        }
+
         if pickedUp {
             guard let window else { return }
             let origin = window.frame.origin
@@ -186,6 +228,20 @@ final class BitView: MTKView {
         }
         dragged = false
         mouseIsDown = false
+    }
+
+    /// Control-dragging up grows the window (and with it the bit), dragging
+    /// down shrinks it. Resizes around the center so the bit stays put.
+    private func resizeWindow(by delta: CGFloat) {
+        guard let window else { return }
+        var frame = window.frame
+        let side = min(max(frame.width + delta, 120), 1200)
+        let change = side - frame.width
+        guard change != 0 else { return }
+        frame.origin.x -= change / 2
+        frame.origin.y -= change / 2
+        frame.size = NSSize(width: side, height: side)
+        window.setFrame(frame, display: true)
     }
 
     private func pickUp() {
