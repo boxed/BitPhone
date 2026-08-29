@@ -2,7 +2,7 @@
 //  BitPhoneAppDelegate.h
 //  BitPhone
 //
-//  Created by Anders Hovmöller on 2010-04-04.
+//  Created by Anders Hovmöller on 2010-04-04.
 //  Copyright Calidris 2010. All rights reserved.
 //
 
@@ -10,13 +10,22 @@
 
 @class EAGLView;
 
-@interface BitPhoneAppDelegate : NSObject <UIApplicationDelegate> {
-    UIWindow *window;
-    EAGLView *glView;
-}
+@interface BitViewController : UIViewController
 
-@property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) IBOutlet EAGLView *glView;
+@property (nonatomic, readonly) EAGLView *glView;
 
 @end
 
+
+
+@interface BitPhoneAppDelegate : NSObject <UIApplicationDelegate>
+
+@end
+
+
+
+@interface BitPhoneSceneDelegate : NSObject <UIWindowSceneDelegate>
+
+@property (nonatomic, retain) UIWindow *window;
+
+@end

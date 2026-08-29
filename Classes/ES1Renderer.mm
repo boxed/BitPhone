@@ -6,10 +6,7 @@
 //  Copyright Calidris 2010. All rights reserved.
 //
 
-extern "C" 
-{
-    #import "ES1Renderer.h"
-}
+#import "ES1Renderer.h"
 
 GLfloat wobbleAngle     = 0.0f;
 GLfloat fAngleX         = 0.0f;
@@ -536,7 +533,19 @@ void displayListYes()
     
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glFrustumf(-1.0, 1.0, -1.0, 1.0, 1.5, 20.0);
+    // Widen the frustum along the longer axis so the scene keeps its aspect
+    // ratio instead of being stretched to fill the viewport.
+    GLfloat frustumX = 1.0f;
+    GLfloat frustumY = 1.0f;
+    if (backingWidth > 0 && backingHeight > 0)
+    {
+        GLfloat aspect = (GLfloat)backingWidth / (GLfloat)backingHeight;
+        if (aspect > 1.0f)
+            frustumX = aspect;
+        else
+            frustumY = 1.0f / aspect;
+    }
+    glFrustumf(-frustumX, frustumX, -frustumY, frustumY, 1.5, 20.0);
     
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();

@@ -38,45 +38,60 @@ void addRotationByDegree(GLfloat degree)
     return [CAEAGLLayer class];
 }
 
-//The GL view is stored in the nib file. When it's unarchived it's sent -initWithCoder:
-- (id) initWithCoder:(NSCoder*)coder
-{    
-    if ((self = [super initWithCoder:coder]))
+- (BOOL) commonInit
+{
+    // Get the layer
+    CAEAGLLayer *eaglLayer = (CAEAGLLayer *)self.layer;
+
+    eaglLayer.opaque = TRUE;
+    eaglLayer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    [NSNumber numberWithBool:FALSE], kEAGLDrawablePropertyRetainedBacking, kEAGLColorFormatRGBA8, kEAGLDrawablePropertyColorFormat, nil];
+
+    renderer = [[ES1Renderer alloc] init];
+
+    if (!renderer)
+        return FALSE;
+
+    animating = FALSE;
+    displayLinkSupported = TRUE;
+    animationFrameInterval = 1.5;
+    displayLink = nil;
+    animationTimer = nil;
+
+    glLoadIdentity();
+    glGetFloatv(GL_MODELVIEW_MATRIX, rotationMatrix);
+    rotationDeltaX = 1;
+    rotationDeltaY = 1;
+
+    return TRUE;
+}
+
+- (id) initWithFrame:(CGRect)frame
+{
+    if ((self = [super initWithFrame:frame]))
     {
-        // Get the layer
-        CAEAGLLayer *eaglLayer = (CAEAGLLayer *)self.layer;
-        
-        eaglLayer.opaque = TRUE;
-        eaglLayer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        [NSNumber numberWithBool:FALSE], kEAGLDrawablePropertyRetainedBacking, kEAGLColorFormatRGBA8, kEAGLDrawablePropertyColorFormat, nil];
-        
-        renderer = [[ES1Renderer alloc] init];
-        
-        if (!renderer)
+        if (![self commonInit])
         {
             [self release];
             return nil;
         }
-        
-        animating = FALSE;
-        displayLinkSupported = FALSE;
-        animationFrameInterval = 1.5;
-        displayLink = nil;
-        animationTimer = nil;
-        
-        // A system version of 3.1 or greater is required to use CADisplayLink. The NSTimer
-        // class is used as fallback when it isn't available.
-        NSString *reqSysVer = @"3.1";
-        NSString *currSysVer = [[UIDevice currentDevice] systemVersion];
-        if ([currSysVer compare:reqSysVer options:NSNumericSearch] != NSOrderedAscending)
-            displayLinkSupported = TRUE;
-        
-        glLoadIdentity();
-        glGetFloatv(GL_MODELVIEW_MATRIX, rotationMatrix);
-        rotationDeltaX = 1;
-        rotationDeltaY = 1;
     }
-    
+
+    return self;
+}
+
+//The GL view can also come from a nib file. When it's unarchived it's sent -initWithCoder:
+- (id) initWithCoder:(NSCoder*)coder
+{
+    if ((self = [super initWithCoder:coder]))
+    {
+        if (![self commonInit])
+        {
+            [self release];
+            return nil;
+        }
+    }
+
     return self;
 }
 

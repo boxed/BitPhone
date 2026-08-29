@@ -19,7 +19,7 @@
 #define dYesScale 1.0f
 #define dNoScale 1.0f
 
-void displayListIcosahedron();
+void displayListIcosahedron(void);
 void displayListDodecahedron();
 void displayListYes();
 void displayListNo();
@@ -36,8 +36,14 @@ extern bool noAnimation;
 
 extern GLfloat rotationMatrix[16];
 extern GLfloat rotationMomentum;
-void addRotationByDegree(GLfloat degree);
-        
+#ifdef __cplusplus
+extern "C" {
+#endif
+    void addRotationByDegree(GLfloat degree);
+#ifdef __cplusplus
+}
+#endif
+
 @interface ES1Renderer : NSObject <ESRenderer>
 {
 @private
