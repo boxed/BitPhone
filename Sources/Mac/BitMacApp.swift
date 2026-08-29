@@ -78,18 +78,26 @@ final class BitWindow: NSWindow {
     }
 }
 
-/// The Metal view showing the bit. Dragging spins it, clicking asks it a
-/// question, and command-dragging moves the window.
+/// The Metal view showing the bit. Dragging spins it, and clicking asks it a
+/// question. Holding the mouse button still for a moment picks the bit up
+/// (it dips, then pops slightly larger); dragging then moves the window, and
+/// releasing puts it down.
 final class BitView: MTKView {
     /// The bit never reaches past this fraction of the view's half-size;
     /// outside that circle the window lets clicks fall through to whatever
     /// is underneath.
     private static let hitRadiusFraction: CGFloat = 0.8
 
+    private static let holdToPickUpInterval: TimeInterval = 0.5
+    private static let dragDeadZone: CGFloat = 3
+
     private let renderer: Renderer
     private var dragged = false
     private var mouseIsDown = false
+    private var pickedUp = false
+    private var pendingDragDistance: CGFloat = 0
     private var clickThroughTimer: Timer?
+    private var holdTimer: Timer?
 
     init(frame: NSRect) {
         guard let device = MTLCreateSystemDefaultDevice(),
@@ -114,6 +122,7 @@ final class BitView: MTKView {
 
     deinit {
         clickThroughTimer?.invalidate()
+        holdTimer?.invalidate()
     }
 
     @available(*, unavailable)
@@ -139,22 +148,56 @@ final class BitView: MTKView {
     override func mouseDown(with event: NSEvent) {
         mouseIsDown = true
         dragged = false
+        pendingDragDistance = 0
+        holdTimer = Timer.scheduledTimer(withTimeInterval: Self.holdToPickUpInterval, repeats: false) { [weak self] _ in
+            self?.pickUp()
+        }
     }
 
     override func mouseDragged(with event: NSEvent) {
-        if event.modifierFlags.contains(.command) {
-            window?.performDrag(with: event)
+        if pickedUp {
+            guard let window else { return }
+            let origin = window.frame.origin
+            window.setFrameOrigin(NSPoint(x: origin.x + event.deltaX,
+                                          y: origin.y - event.deltaY))
             return
         }
+
+        // A small dead zone so the jitter of a finger held still doesn't
+        // cancel the pickup (or twitch the bit).
+        if !dragged {
+            pendingDragDistance += hypot(event.deltaX, event.deltaY)
+            guard pendingDragDistance > Self.dragDeadZone else { return }
+            holdTimer?.invalidate()
+            holdTimer = nil
+            dragged = true
+        }
+
         renderer.drag(deltaX: Float(event.deltaX), deltaY: Float(event.deltaY))
-        dragged = true
     }
 
     override func mouseUp(with event: NSEvent) {
-        if !dragged {
+        holdTimer?.invalidate()
+        holdTimer = nil
+        if pickedUp {
+            putDown()
+        } else if !dragged {
             renderer.tap()
         }
         dragged = false
         mouseIsDown = false
+    }
+
+    private func pickUp() {
+        holdTimer = nil
+        pickedUp = true
+        renderer.pickUp()
+        NSCursor.closedHand.push()
+    }
+
+    private func putDown() {
+        pickedUp = false
+        renderer.putDown()
+        NSCursor.pop()
     }
 }

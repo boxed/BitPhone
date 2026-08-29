@@ -60,6 +60,13 @@ final class Renderer: NSObject, MTKViewDelegate {
     private var rotationAxis = SIMD3<Float>(1, 1, 1)
     private var rotationMomentum: Float = 0.4
 
+    private enum PickupPhase {
+        case none, dipping, rising, held, dropping
+    }
+
+    private var pickupPhase = PickupPhase.none
+    private var pickupScale: Float = 1
+
     // MARK: - Setup
 
     init?(device: MTLDevice) {
@@ -124,6 +131,16 @@ final class Renderer: NSObject, MTKViewDelegate {
         sounds.play(answer)
     }
 
+    /// Picking the bit up: it dips smaller, then pops slightly larger and
+    /// stays there until put down.
+    func pickUp() {
+        pickupPhase = .dipping
+    }
+
+    func putDown() {
+        pickupPhase = .dropping
+    }
+
     private func rotate(byDegrees degrees: Float) {
         rotation = float4x4(rotationDegrees: degrees, axis: rotationAxis) * rotation
     }
@@ -141,6 +158,31 @@ final class Renderer: NSObject, MTKViewDelegate {
             rotationMomentum = 0.1
         }
         rotate(byDegrees: rotationMomentum)
+
+        switch pickupPhase {
+        case .none, .held:
+            break
+        case .dipping:
+            pickupScale -= 0.03
+            if pickupScale <= 0.85 {
+                pickupScale = 0.85
+                pickupPhase = .rising
+            }
+        case .rising:
+            pickupScale += 0.03
+            if pickupScale >= 1.15 {
+                pickupScale = 1.15
+                pickupPhase = .held
+            }
+        case .dropping:
+            // Ease back to 1 from either direction (dropping can interrupt
+            // the dip).
+            pickupScale += pickupScale < 1 ? 0.03 : -0.03
+            if abs(pickupScale - 1) < 0.03 {
+                pickupScale = 1
+                pickupPhase = .none
+            }
+        }
 
         if answer != nil {
             // The original advanced this angle twice per frame (once in the
@@ -200,7 +242,7 @@ final class Renderer: NSObject, MTKViewDelegate {
             break
         }
 
-        let base = float4x4(translation: [0, 0, -3]) * rotation * float4x4(uniformScale: 0.9)
+        let base = float4x4(translation: [0, 0, -3]) * rotation * float4x4(uniformScale: 0.9 * pickupScale)
 
         // The two idle shapes pulse out of phase; both shrink away while an
         // answer shape scales in.
