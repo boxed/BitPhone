@@ -5,6 +5,7 @@
 
 import AudioToolbox
 import MetalKit
+import QuartzCore
 import simd
 
 /// The answer the bit gives when tapped, with the sound resource it plays.
@@ -26,9 +27,12 @@ final class Renderer: NSObject, MTKViewDelegate {
     static let colorPixelFormat = MTLPixelFormat.bgra8Unorm
     static let depthPixelFormat = MTLPixelFormat.depth32Float
 
-    /// The animation steps below are per frame and were tuned for a 60 Hz
-    /// display link, so the view is capped at 60 fps.
+    /// The animation constants below are per-step values tuned for a 60 Hz
+    /// display link. draw(in:) advances one step per 1/60 s of wall-clock
+    /// time, so a view may run at a lower frame rate (or pause while hidden)
+    /// without changing the animation's speed.
     static let framesPerSecond = 60
+    private static let animationStepsPerSecond: Double = 60
 
     private struct Mesh {
         let buffer: MTLBuffer
@@ -66,6 +70,9 @@ final class Renderer: NSObject, MTKViewDelegate {
 
     private var pickupPhase = PickupPhase.none
     private var pickupScale: Float = 1
+
+    private var lastDrawTime: CFTimeInterval?
+    private var pendingAnimationSteps: Double = 0
 
     // MARK: - Setup
 
@@ -148,6 +155,22 @@ final class Renderer: NSObject, MTKViewDelegate {
     // MARK: - Per-frame animation
 
     private func advanceAnimation() {
+        let now = CACurrentMediaTime()
+        defer { lastDrawTime = now }
+        guard let lastDrawTime else {
+            advanceAnimationStep()
+            return
+        }
+        // Cap the catch-up so a long gap (a paused, occluded window) doesn't
+        // fast-forward the bit when drawing resumes.
+        pendingAnimationSteps += min(now - lastDrawTime, 0.25) * Self.animationStepsPerSecond
+        while pendingAnimationSteps >= 1 {
+            pendingAnimationSteps -= 1
+            advanceAnimationStep()
+        }
+    }
+
+    private func advanceAnimationStep() {
         wobbleAngle += 5 / timeMultiplier
         if wobbleAngle > 360 {
             wobbleAngle -= 360

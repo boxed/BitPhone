@@ -133,6 +133,8 @@ final class BitView: MTKView {
     private var resizeCenter: NSPoint?
     private var clickThroughTimer: Timer?
     private var holdTimer: Timer?
+    private var lastMouseLocation: NSPoint?
+    private var occlusionObserver: NSObjectProtocol?
 
     init(frame: NSRect) {
         guard let device = MTLCreateSystemDefaultDevice(),
@@ -145,19 +147,27 @@ final class BitView: MTKView {
         colorPixelFormat = Renderer.colorPixelFormat
         depthStencilPixelFormat = Renderer.depthPixelFormat
         clearColor = MTLClearColor(red: 0, green: 0, blue: 0, alpha: 0)
-        preferredFramesPerSecond = Renderer.framesPerSecond
+        // The renderer's animation is time-based, so a lower frame rate only
+        // reduces smoothness (and CPU use), not the animation's speed. 30 fps
+        // is plenty for the wobble and roughly halves the rendering cost.
+        preferredFramesPerSecond = 30
         wantsLayer = true
         layer?.isOpaque = false
         delegate = renderer
 
-        clickThroughTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 30.0, repeats: true) { [weak self] _ in
+        let timer = Timer.scheduledTimer(withTimeInterval: 1.0 / 30.0, repeats: true) { [weak self] _ in
             self?.updateClickThrough()
         }
+        timer.tolerance = 0.02  // let the OS coalesce the wake-ups
+        clickThroughTimer = timer
     }
 
     deinit {
         clickThroughTimer?.invalidate()
         holdTimer?.invalidate()
+        if let occlusionObserver {
+            NotificationCenter.default.removeObserver(occlusionObserver)
+        }
     }
 
     @available(*, unavailable)
@@ -165,12 +175,36 @@ final class BitView: MTKView {
         fatalError("init(coder:) is not supported")
     }
 
+    /// Rendering is pointless while the window is not visible at all (on
+    /// another space, or fully covered), so pause it there.
+    override func viewDidMoveToWindow() {
+        super.viewDidMoveToWindow()
+        if let occlusionObserver {
+            NotificationCenter.default.removeObserver(occlusionObserver)
+            self.occlusionObserver = nil
+        }
+        guard let window else { return }
+        occlusionObserver = NotificationCenter.default.addObserver(
+            forName: NSWindow.didChangeOcclusionStateNotification,
+            object: window, queue: .main
+        ) { [weak self] _ in
+            guard let self, let window = self.window else { return }
+            self.isPaused = !window.occlusionState.contains(.visible)
+        }
+    }
+
     /// The window takes mouse events only while the cursor is over the bit,
     /// so the transparent parts of the window behave as if they were not
     /// there.
     private func updateClickThrough() {
         guard let window, !mouseIsDown else { return }
-        let mouse = convert(window.convertPoint(fromScreen: NSEvent.mouseLocation), from: nil)
+        // The answer only changes when the pointer moves (the window moves
+        // and resizes only with the mouse held down), so a stationary mouse
+        // makes this tick free.
+        let location = NSEvent.mouseLocation
+        guard location != lastMouseLocation else { return }
+        lastMouseLocation = location
+        let mouse = convert(window.convertPoint(fromScreen: location), from: nil)
         let radius = min(bounds.width, bounds.height) / 2 * Self.hitRadiusFraction
         let overBit = hypot(mouse.x - bounds.midX, mouse.y - bounds.midY) <= radius
         window.ignoresMouseEvents = !overBit
@@ -233,6 +267,9 @@ final class BitView: MTKView {
         }
         dragged = false
         mouseIsDown = false
+        // The window may have moved or resized under the pointer; make the
+        // next tick recompute click-through even if the mouse stays put.
+        lastMouseLocation = nil
     }
 
     /// Control-dragging up grows the window (and with it the bit), dragging
