@@ -21,7 +21,7 @@ zip="$build/Bit-macos.zip"
 
 xcrun notarytool history --keychain-profile "$profile" >/dev/null 2>&1 \
   || die "notarytool keychain profile '$profile' not found"
-security find-identity -v -p codesigning | grep -q "Developer ID Application: .*($team)" \
+security find-identity -v -p codesigning | grep -q "Developer ID Application: Anders Hovmoller ($team)" \
   || die "no Developer ID Application identity for team $team in the keychain"
 git diff --quiet HEAD || die "working tree has uncommitted changes"
 
@@ -34,13 +34,17 @@ note "releasing Bit $version for macOS ($tag)"
 
 note "building..."
 rm -rf "$build"
+# Xcode insists on a provisioning profile when it signs this target itself,
+# which Developer ID apps don't need, so build unsigned and sign afterwards.
 xcodebuild -scheme BitMac -configuration Release -derivedDataPath "$build" \
-  ARCHS="arm64 x86_64" ONLY_ACTIVE_ARCH=NO \
-  CODE_SIGN_STYLE=Manual CODE_SIGN_IDENTITY="Developer ID Application" \
-  DEVELOPMENT_TEAM="$team" ENABLE_HARDENED_RUNTIME=YES \
-  OTHER_CODE_SIGN_FLAGS="--timestamp" \
+  -destination "generic/platform=macOS" ARCHS="arm64 x86_64" ONLY_ACTIVE_ARCH=NO \
+  CODE_SIGNING_ALLOWED=NO \
   build | grep -E "error|warning: |BUILD" >&2
 [ -d "$app" ] || die "build failed"
+
+note "signing..."
+codesign --force --options runtime --timestamp \
+  --sign "Developer ID Application: Anders Hovmoller ($team)" "$app"
 codesign --verify --deep --strict "$app" || die "signature verification failed"
 
 note "notarizing (this can take a few minutes)..."
