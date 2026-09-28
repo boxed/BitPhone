@@ -50,7 +50,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         window.level = .floating
         window.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
         window.contentView = BitView(frame: NSRect(origin: .zero, size: contentRect.size))
-        window.setFrameAutosaveName("bit")  // remember position and size
+        // Remember position and size. The window isn't .resizable, so the
+        // autosave only restores the position on its own; force the size.
+        window.setFrameUsingName("bit", force: true)
+        window.setFrameAutosaveName("bit")
         window.makeKeyAndOrderFront(nil)
         self.window = window
 
