@@ -2,7 +2,7 @@
 
 The bit from Tron, for iPhone and Mac. Ask it a question and it answers yes or no.
 
-[Download for iPhone on the App Store](https://apps.apple.com/app/bit/id366236469)
+[Download for iPhone on the App Store](https://apps.apple.com/app/bit/id366236469) · [Download for Mac](https://github.com/boxed/BitPhone/releases/latest)
 
 <p align="center">
   <img src="screenshots/ios.png" alt="Bit on iPhone" height="400">
